@@ -28,3 +28,11 @@ Did by myself
 - `sudo insmod cmpe283-1.ko`
 - `dmesg`
 - Push the changed files and the output images to repo
+
+### Output
+
+1. Entry and Exit
+
+![Entry exit](cmp283/Entry_exit.JPG)
+
+
