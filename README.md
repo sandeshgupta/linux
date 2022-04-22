@@ -33,6 +33,12 @@ Did by myself
 
 1. Entry and Exit
 
-![Entry exit](cmp283/Entry_exit.JPG)
+![Entry exit](cmpe283/Entry_exit.JPG)
 
+2. Primary
 
+![Primary](cmpe283/Primary.JPG)
+
+3. Secondary
+
+![Secondary](cmpe283/Secondary.JPG)
