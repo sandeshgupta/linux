@@ -70,12 +70,7 @@
 MODULE_AUTHOR("Qumranet");
 MODULE_LICENSE("GPL");
 
-extern u32 total_no_of_exits;
-extern u64 total_time_of_all_exits;
-// extern u32 noepen[69];
-// extern u64 tpe[69];
-
-
+extern u32 total_exits;
 
 #ifdef MODULE
 static const struct x86_cpu_id vmx_cpu_id[] = {
@@ -6014,17 +6009,12 @@ void dump_vmcs(struct kvm_vcpu *vcpu)
  */
 static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 {
-	u64 start_time;
-	u64 time_taken_for_exit;
 	struct vcpu_vmx *vmx = to_vmx(vcpu);
 	union vmx_exit_reason exit_reason = vmx->exit_reason;
 	u32 vectoring_info = vmx->idt_vectoring_info;
 	u16 exit_handler_index;
-	int exit_handler;
-   
-	total_no_of_exits++;	
 
-
+total_exits = total_exits + 1;
 	/*
 	 * Flush logged GPAs PML buffer, this will make dirty_bitmap more
 	 * updated. Another good is, in kvm_vm_ioctl_get_dirty_log, before
@@ -6176,19 +6166,12 @@ static int __vmx_handle_exit(struct kvm_vcpu *vcpu, fastpath_t exit_fastpath)
 		return handle_ept_misconfig(vcpu);
 #endif
 
-exit_handler_index = array_index_nospec((u16)exit_reason.basic,
+	exit_handler_index = array_index_nospec((u16)exit_reason.basic,
 						kvm_vmx_max_exit_handlers);
 	if (!kvm_vmx_exit_handlers[exit_handler_index])
 		goto unexpected_vmexit;
-	
-	start_time = rdtsc();		
-	
-	exit_handler=kvm_vmx_exit_handlers[exit_handler_index](vcpu);
-	
-	time_taken_for_exit = rdtsc() - start_time;
-	total_time_of_all_exits = time_taken_for_exit  + total_time_of_all_exits;		
-	
-	return exit_handler;
+
+	return kvm_vmx_exit_handlers[exit_handler_index](vcpu);
 
 unexpected_vmexit:
 	vcpu_unimpl(vcpu, "vmx: unexpected exit reason 0x%x\n",
