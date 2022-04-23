@@ -72,8 +72,6 @@ MODULE_LICENSE("GPL");
 
 extern u32 total_no_of_exits;
 extern u64 total_time_of_all_exits;
-// extern u32 noepen[69];
-// extern u64 tpe[69];
 
 
 
