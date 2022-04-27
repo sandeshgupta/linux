@@ -39,6 +39,13 @@ EXPORT_SYMBOL(total_no_of_exits);
 u64 total_time_of_all_exits = 0;
 EXPORT_SYMBOL(total_time_of_all_exits);
 
+u32 no_of_each_exits[69];
+EXPORT_SYMBOL(no_of_each_exits);
+
+u64 time_of_each_exits[69];
+EXPORT_SYMBOL(time_of_each_exits);
+
+
 u32 xstate_required_size(u64 xstate_bv, bool compacted)
 {
 	int feature_bit = 0;
@@ -1455,19 +1462,37 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 
 	eax = kvm_rax_read(vcpu);
 	ecx = kvm_rcx_read(vcpu);
+
+
+	printk(KERN_INFO "EAX = %d", eax);
+	// printk(KERN_INFO "EAX = %d, total_no_of_exits = %d total_time_of_all_exits = %llu no_of_each_exits = %d time_of_each_exits = %llu", 
+	// 	eax, total_no_of_exits, total_time_of_all_exits, no_of_each_exits, time_of_each_exits);
 	if(eax == 0x4fffffff)
 	{
+		printk(KERN_INFO "total_no_of_exits:  %d", total_no_of_exits);
 		eax = total_no_of_exits;
-	 	printk(KERN_INFO "total_no_of_exits:  %d", total_no_of_exits);
 	}
 	else if(eax == 0x4ffffffe){
 		ebx = (total_time_of_all_exits >> 32);
 		ecx = (total_time_of_all_exits & 0xFFFFFFFF); 
 		printk(KERN_INFO "Total Exit Time For All Exits = %llu", total_time_of_all_exits);
-	}
-
-	else {
-	kvm_cpuid(vcpu, &eax, &ebx, &ecx, &edx, false);
+	} else if(eax==0x4ffffffd){
+		if(ecx < 0 || ecx > 69){
+			printk(KERN_INFO "Invalid exit number: %d", ecx);
+		} else {
+			eax = no_of_each_exits[(int)ecx];
+			printk(KERN_INFO "Number of exits is %d for exit number %d", no_of_each_exits[(int)ecx], (int)ecx);
+		}
+	} else if(eax==0x4ffffffc) {
+		if(ecx < 0 || ecx > 69){
+			printk(KERN_INFO "Invalid exit number: %d", ecx);
+		} else {
+			ebx = time_of_each_exits[(int)ecx] >> 32;
+			ecx = time_of_each_exits[(int)ecx] & 0xFFFFFFFF ;
+			printk(KERN_INFO "Time for processing exits is %llu for exit number %d", time_of_each_exits[(int)ecx], (int)ecx);
+		}
+	} else {
+		kvm_cpuid(vcpu, &eax, &ebx, &ecx, &edx, false);
 	}
 	kvm_rax_write(vcpu, eax);
 	kvm_rbx_write(vcpu, ebx);
