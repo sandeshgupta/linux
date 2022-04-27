@@ -35,6 +35,8 @@ cpuid -l 0x4ffffffd -s <exit_number>
 cpuid -l 0x4ffffffc -s <exit_number>
 ```
 
+![output](cmpe283/no_of_exits.jpeg "Title")
+
 # Assignment 2
 
 ### Question 1 
