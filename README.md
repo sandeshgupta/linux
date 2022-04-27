@@ -30,10 +30,10 @@ sudo virsh console centOSvm
 
 - Run cpu commands
 
-`
+```
 cpuid -l 0x4ffffffd -s <exit_number>
 cpuid -l 0x4ffffffc -s <exit_number>
-`
+```
 
 # Assignment 2
 
