@@ -1,3 +1,40 @@
+# Assignment 3
+
+### Question 1 
+
+Did by myself
+ 
+### Question 2 - Steps followed
+
+- Use code from assignment 2 as base code
+- Added code in vmx.c and cpuid.c to implement the functionality for eax= 0x4FFFFFFD and 0x4FFFFFFC
+- `make -j 8 modules`
+- `sudo bash`
+- `make INSTALL_MOD_STRIP=1 modules_install && make install`
+- `lsmod | grep kvm`
+- `rmmod kvm_intel; rmmod kvm`
+- `modprobe kvm_intel; modprobe kvm`
+
+#### Testing 
+
+- Start nested vm - CentOS
+
+```
+sudo virsh start centOSvm
+
+sudo virsh console centOSvm
+```
+- Install cpuid in L1 VM
+
+`sudo yum -y install cpuid `
+
+- Run cpu commands
+
+`
+cpuid -l 0x4ffffffd -s <exit_number>
+cpuid -l 0x4ffffffc -s <exit_number>
+`
+
 # Assignment 2
 
 ### Question 1 
@@ -8,10 +45,10 @@ Did by myself
 
 - Use code from assignment 1 as base code
 - Added code in vmx.c and cpuid.c to implement the functionality for eax= 0x4FFFFFFF and 0x4FFFFFFE
-- `make -j 8`
+- `make -j 8  modules`
 - `sudo bash`
 - `make INSTALL_MOD_STRIP=1 modules_install && make install`
-- `lsmod grep kvm`
+- `lsmod | grep kvm`
 - `rmmod kvm_intel; rmmod kvm`
 - `modprobe kvm_intel; modprobe kvm`
 
