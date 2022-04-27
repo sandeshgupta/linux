@@ -1,3 +1,48 @@
+# Assignment 2
+
+### Question 1 
+
+Did by myself
+ 
+### Question 2 - Steps followed
+
+- Use code from assignment 1 as base code
+- Added code in vmx.c and cpuid.c to implement the functionality for eax= 0x4FFFFFFF and 0x4FFFFFFE
+- `make -j 8`
+- `sudo bash`
+- `make INSTALL_MOD_STRIP=1 modules_install && make install`
+- `lsmod grep kvm`
+- `rmmod kvm_intel; rmmod kvm`
+- `modprobe kvm_intel; modprobe kvm`
+
+#### Testing 
+
+- Create nested vm - CentOS
+
+```
+wget "http://mirrors.greenmountainaccess.net/centos/7.9.2009/isos/x86_64/CentOS-7-x86_64-DVD-2009.iso"
+
+sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+
+virt-install  --network bridge:virbr0 --name centOSvm --os-variant=centos7.0 --ram=1024 --vcpus=1 --disk path=/var/lib/libvirt/images/centOSvm-os.qcow2,format=qcow2,bus=virtio,size=5 --graphics none  --location=CentOS-7-x86_64-DVD-2009.iso --extra-args="console=tty0 console=ttyS0,115200"  --check all=off
+
+sudo virsh start centOSvm
+
+sudo virsh console centOSvm
+```
+- Install cpuid in L1 VM
+
+`sudo yum -y install cpuid `
+
+- Run cpu commands
+
+`
+cpuid -l 0x4fffffff
+cpuid -l 0x4ffffffe
+`
+
+
+
 # Assignment 1
 
 ### Question 1 
