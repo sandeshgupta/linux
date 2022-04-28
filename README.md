@@ -35,6 +35,19 @@ cpuid -l 0x4ffffffd -s <exit_number>
 cpuid -l 0x4ffffffc -s <exit_number>
 ```
 
+#### Obsevations
+
+. Comment on the frequency of exits – does the number of exits increase at a stable rate? Or are there 
+more exits performed during certain VM operations? Approximately how many exits does a full VM 
+boot entail?
+
+--> Full boot caused approximately 1.4 million exits. The increase in number of exits were pretty much stable when no operations were being perfomred. The exits tend to increase when you open up multiple applications and work with it.
+
+Of the exit types defined in the SDM, which are the most frequent? Least?
+
+--> Some of the exits which were least(0) were: 2 - Triple Fault, 3 - INIT signal, 4 - SIPI, 7 - Interrupt window
+Some of the most frequent exits were: 10 - CPUID, 28 - Control register access, 30 - I/O instruction , 48 - EPT violation
+
 ![output](cmpe283/no_of_exits.jpeg "Title")
 
 # Assignment 2
