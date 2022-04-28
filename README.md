@@ -44,7 +44,7 @@ for i in `seq 0 69`; do cpuid -l 0x4ffffffd -s $i; done -- for all exit counts
 more exits performed during certain VM operations? Approximately how many exits does a full VM 
 boot entail?
 
---> Full boot caused approximately 700k exits. The increase in number of exits were pretty much stable when queried within 5-10 seconds and no operations were being performed (Ref1 and Ref2). The exits tend to increase at a faster rate when you run multiple commands(top, ping, du) and work with it.
+--> Full boot caused approximately 700k exits. The increase in number of exits were pretty much stable when queried within 5-10 seconds and no operations were being performed ([Refer_1](cmpe283/output/total_exits_1.JPG) and [Refer_2](cmpe283/output/total_exits_2.JPG)). The exits tend to increase at a faster rate when you run multiple commands(top, ping, du) and work with it.
 
 - Of the exit types defined in the SDM, which are the most frequent? Least?
 
