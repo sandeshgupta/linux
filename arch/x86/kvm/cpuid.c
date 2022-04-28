@@ -1464,7 +1464,7 @@ int kvm_emulate_cpuid(struct kvm_vcpu *vcpu)
 	ecx = kvm_rcx_read(vcpu);
 
 
-	printk(KERN_INFO "EAX = %d", eax);
+	//printk(KERN_INFO "EAX = %d", eax);
 	// printk(KERN_INFO "EAX = %d, total_no_of_exits = %d total_time_of_all_exits = %llu no_of_each_exits = %d time_of_each_exits = %llu", 
 	// 	eax, total_no_of_exits, total_time_of_all_exits, no_of_each_exits, time_of_each_exits);
 	if(eax == 0x4fffffff)
