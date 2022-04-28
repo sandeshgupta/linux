@@ -49,7 +49,7 @@ boot entail?
 - Of the exit types defined in the SDM, which are the most frequent? Least?
 
 --> Some of the exits which were least(0) were: 2 - Triple Fault, 3 - INIT signal, 4 - SIPI, 6 - Other SMI
-Some of the most frequent exits were: 10 - CPUID, 28 - Control register access, 30 - I/O instruction , 48 - EPT violation (Ref1 and [![Screenshot_2](cmpe283/output/specific_exits_2.JPG)](link to your URL) )
+Some of the most frequent exits were: 10 - CPUID, 28 - Control register access, 30 - I/O instruction , 48 - EPT violation (Ref1 and [![Screenshot_2](cmpe283/output/specific_exits_2.JPG)](https://github.com/sandeshgupta/linux/blob/master/cmpe283/output/specific_exits_2.JPG) )
 
 # Assignment 2
 
